@@ -2,6 +2,8 @@
 
 # Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data
 
+**Paper accepted at Synthetic Data for Computer Vision Workshop @ CVPR 2025**
+
 [![Paper](https://img.shields.io/badge/OpenReview-Paper-blue)](https://openreview.net/forum?id=wPgGTUWmhl)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -181,10 +183,12 @@ If you find this work useful, please cite our paper:
 
 ```bibtex
 @inproceedings{
-    title={Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data},
-    author={},
-    booktitle={},
-    year={2025}
+    jarida2025instant,
+    title={Instant Particle Size Distribution Measurement Using {CNN}s Trained on Synthetic Data},
+    author={Yasser El Jarida and Youssef Iraqi and Loubna Mekouar},
+    booktitle={Synthetic Data for Computer Vision Workshop @ CVPR 2025},
+    year={2025},
+    url={https://openreview.net/forum?id=wPgGTUWmhl}
 }
 ```
 
