@@ -1,0 +1,30 @@
+Generated new test CSV: output/resnet50_test.csv from weights/predictions.csv
+Using device: cuda
+Starting inference on 933 images...
+Total inference time: 37.8456 sec
+Time per image:      0.040563 sec
+FPS (images/sec):    24.65
+Predictions saved to output/resnet50_predictions.csv
+
+--- Per-Dimension Metrics ---
+d10 R^2:  0.9591
+d10 MAE: 0.0913
+d10 MSE: 0.0315
+
+d50 R^2:  0.9904
+d50 MAE: 0.0747
+d50 MSE: 0.0160
+
+d90 R^2:  0.9888
+d90 MAE: 0.0660
+d90 MSE: 0.0137
+
+--- Overall Metrics (all dims combined) ---
+Overall R^2:  0.9987
+Overall MAE: 0.0773
+Overall MSE: 0.0204
+
+Generating plot: output/resnet50_plot.png
+Prediction plot saved to output/resnet50_plot.png
+
+Done.

@@ -1,0 +1,30 @@
+Generated new test CSV: output/inception_v3_test.csv from weights/predictions.csv
+Using device: cuda
+Starting inference on 933 images...
+Total inference time: 39.3247 sec
+Time per image:      0.042149 sec
+FPS (images/sec):    23.73
+Predictions saved to output/inception_v3_predictions.csv
+
+--- Per-Dimension Metrics ---
+d10 R^2:  0.8933
+d10 MAE: 0.2212
+d10 MSE: 0.0821
+
+d50 R^2:  0.9738
+d50 MAE: 0.1651
+d50 MSE: 0.0438
+
+d90 R^2:  0.9680
+d90 MAE: 0.1525
+d90 MSE: 0.0391
+
+--- Overall Metrics (all dims combined) ---
+Overall R^2:  0.9966
+Overall MAE: 0.1796
+Overall MSE: 0.0550
+
+Generating plot: output/inception_v3_plot.png
+Prediction plot saved to output/inception_v3_plot.png
+
+Done.

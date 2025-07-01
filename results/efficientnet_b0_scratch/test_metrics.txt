@@ -1,0 +1,5 @@
+Test Metrics:
+mse_d10: 0.1739
+mse_d50: 0.1027
+mse_d90: 0.1219
+overall_mse: 0.1328

@@ -1,0 +1,30 @@
+Generated new test CSV: output/efficientnet_b0_test_cpu.csv from weights/predictions.csv
+Using device: cpu
+Starting inference on 933 images...
+Total inference time: 61.6066 sec
+Time per image:      0.066031 sec
+FPS (images/sec):    15.14
+Predictions saved to output/efficientnet_b0_predictions_cpu.csv
+
+--- Per-Dimension Metrics ---
+d10 R^2:  0.8789
+d10 MAE: 0.2347
+d10 MSE: 0.0932
+
+d50 R^2:  0.9671
+d50 MAE: 0.1832
+d50 MSE: 0.0549
+
+d90 R^2:  0.9604
+d90 MAE: 0.1721
+d90 MSE: 0.0484
+
+--- Overall Metrics (all dims combined) ---
+Overall R^2:  0.9959
+Overall MAE: 0.1966
+Overall MSE: 0.0655
+
+Generating plot: output/efficientnet_b0_plot_cpu.png
+Prediction plot saved to output/efficientnet_b0_plot_cpu.png
+
+Done.
