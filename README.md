@@ -115,6 +115,25 @@ Key parameters:
 - `--min_rocks`: Minimum number of rocks per image
 - `--max_rocks`: Maximum number of rocks per image
 
+### Generating the CSV Dataset
+
+After generating the images and particle data, create the CSV file for training:
+
+```python
+python generate_csv.py \
+    --particles_dir data/dataset/particles \
+    --renders_dir data/dataset/renders \
+    --output data/granules_dataset.csv
+```
+
+Key parameters:
+- `--particles_dir`: Directory containing particle JSON files (default: data/dataset/particles)
+- `--renders_dir`: Directory containing rendered images (default: data/dataset/renders)
+- `--output`: Output CSV file path (default: data/granules_dataset.csv)
+- `--absolute_paths`: Use absolute paths instead of relative paths
+
+The CSV file contains columns: `image_path`, `d10`, `d50`, `d90` where d10, d50, d90 are the 10th, 50th, and 90th percentiles of the particle size distribution.
+
 ## Training
 
 To train a model on the synthetic dataset:
