@@ -1,5 +1,2 @@
 *.pth
-weights/*
-!weights/.gitkeep
 rock_models/*
-!rock_models/.gitkeep

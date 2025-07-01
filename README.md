@@ -1,8 +1,12 @@
+<div align="center">
+
 # Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data
 
 [![Paper](https://img.shields.io/badge/OpenReview-Paper-blue)](https://openreview.net/forum?id=wPgGTUWmhl)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
 
 This repository contains the official implementation of the paper "Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data". Our work demonstrates how synthetic data generation can be effectively used to train deep learning models for granular material analysis, specifically for particle size distribution measurement.
 
@@ -61,6 +65,26 @@ cd blender-4.0.2-linux-x64
 ```
 
 Make sure Blender is accessible from your command line before running the dataset generation scripts.
+
+### Rendering Configuration
+The dataset generation uses Blender's Cycles rendering engine, which supports both CPU and GPU rendering:
+
+1. **GPU Rendering (Recommended)**:
+   - Significantly faster rendering times (2-10x speedup)
+   - Supports CUDA (NVIDIA) and OpenCL (AMD) devices
+   - To enable GPU rendering:
+     1. Open Blender
+     2. Go to Edit > Preferences > System
+     3. Under "Cycles Render Devices", enable your GPU
+     4. The dataset generation script will automatically use available GPU devices
+
+2. **CPU Rendering**:
+   - Available by default
+   - More compatible but slower
+   - Useful for systems without dedicated GPUs
+   - No additional setup required
+
+The dataset generation script will automatically detect and use the fastest available rendering device. For optimal performance, we recommend using a CUDA-capable GPU.
 
 ## Dataset Generation
 
