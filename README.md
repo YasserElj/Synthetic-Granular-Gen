@@ -1,7 +1,7 @@
 # Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data
 
 [![Paper](https://img.shields.io/badge/OpenReview-Paper-blue)](https://openreview.net/forum?id=wPgGTUWmhl)
-[![Python 3.8+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This repository contains the official implementation of the paper "Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data". Our work demonstrates how synthetic data generation can be effectively used to train deep learning models for granular material analysis, specifically for particle size distribution measurement.
@@ -25,6 +25,11 @@ Our approach uses synthetic data generation to train CNNs for instant particle s
 
 ## Installation
 
+### Requirements
+- Python 3.12.8
+- Blender 4.0.2
+- CUDA-capable GPU (recommended for faster inference)
+
 ### Environment Setup
 
 ```bash
@@ -36,6 +41,26 @@ cd Synthetic-Granular-Gen
 conda env create -f environment.yml
 conda activate synthetic-granular-env
 ```
+
+### Blender Installation
+The synthetic dataset generation requires Blender 4.0.2. Follow these steps to install it:
+
+1. Download Blender:
+```bash
+# Download Blender 4.0.2
+wget https://download.blender.org/release/Blender4.0/blender-4.0.2-linux-x64.tar.xz
+
+# Extract the archive
+tar -xvf blender-4.0.2-linux-x64.tar.xz
+
+# Navigate to Blender directory
+cd blender-4.0.2-linux-x64
+
+# Launch Blender (for testing the installation)
+./blender-launcher
+```
+
+Make sure Blender is accessible from your command line before running the dataset generation scripts.
 
 ## Dataset Generation
 
@@ -135,15 +160,10 @@ If you find this work useful, please cite our paper:
     title={Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data},
     author={},
     booktitle={},
-    year={2023}
+    year={2025}
 }
 ```
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Rock models used for synthetic data generation were obtained from [TurboSquid](https://www.turbosquid.com/3d-models/yellow-stone-rock-set-pbr-1486885)
-- Implementation built using PyTorch and related libraries 
