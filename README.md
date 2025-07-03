@@ -17,12 +17,12 @@ This repository contains the official implementation of the paper "Instant Parti
 
 ### Synthetic Data Examples
 <div align="center">
-<img src="data/dataset/renders/render_0005.png" width="300"/> <img src="data/dataset/renders/render_0006.png" width="300"/> <img src="data/dataset/renders/render_0007.png" width="300"/>
+<img src="data/dataset/renders/render_0005.png" width="250"/> <img src="data/dataset/renders/render_0006.png" width="250"/> <img src="data/dataset/renders/render_0007.png" width="250"/>
 </div>
 
 ### Rock Models and Mesh Structure
 <div align="center">
-<img src="assets/rock_models_image.jpg" width="415"/> <img src="assets/rocks_mesh.jpg" width="500"/>
+<img src="assets/rock_models_image.jpg" width="300"/> <img src="assets/rocks_mesh.jpg" width="365"/>
 </div>
 
 Our approach focuses on generating realistic-looking synthetic granular material data to avoid the labor-intensive process of manual particle size measurement. The method involves:
