@@ -5,29 +5,32 @@
 **Paper accepted at Synthetic Data for Computer Vision Workshop @ CVPR 2025**
 
 [![Paper](https://img.shields.io/badge/OpenReview-Paper-blue)](https://openreview.net/forum?id=wPgGTUWmhl)
+[![arXiv](https://img.shields.io/badge/arXiv-2507.00822-red.svg)](https://arxiv.org/abs/2507.00822)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
 
-This repository contains the official implementation of the paper "Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data". Our work demonstrates how synthetic data generation can be effectively used to train deep learning models for granular material analysis, specifically for particle size distribution measurement.
+This repository contains the official implementation of the paper "Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data", accepted at the **Synthetic Data for Computer Vision Workshop @ CVPR 2025**. Our work demonstrates how synthetic data generation can effectively replace time-consuming manual particle size measurement processes that require extensive manual labor.
 
 ## Overview
 
 ### Synthetic Data Examples
 <div align="center">
-<img src="data/dataset/renders/render_0.png" width="250"/> <img src="data/dataset/renders/render_1.png" width="250"/> <img src="data/dataset/renders/render_2.png" width="250"/>
+<img src="data/dataset/renders/render_0005.png" width="300"/> <img src="data/dataset/renders/render_0006.png" width="300"/> <img src="data/dataset/renders/render_0007.png" width="300"/>
 </div>
 
 ### Rock Models and Mesh Structure
 <div align="center">
-<img src="assets/rock_models_image.jpg" width="400"/> <img src="assets/rocks_mesh.jpg" width="400"/>
+<img src="assets/rock_models_image.jpg" width="415"/> <img src="assets/rocks_mesh.jpg" width="500"/>
 </div>
 
-Our approach uses synthetic data generation to train CNNs for instant particle size distribution measurement. The method involves:
-1. Generating synthetic granular material images using 3D models
-2. Training various CNN architectures on this synthetic dataset
-3. Evaluating the models' performance on real-world granular material images
+Our approach focuses on generating realistic-looking synthetic granular material data to avoid the labor-intensive process of manual particle size measurement. The method involves:
+1. Generating photorealistic synthetic granular material images using 3D models and physics simulations
+2. Training various CNN architectures on this synthetic dataset with automatically computed ground truth labels
+3. Demonstrating the effectiveness of synthetic data for particle size distribution prediction
+
+**Note**: This work focuses on synthetic data generation and validation. Evaluation on real-world granular materials represents the next step of this research.
 
 ## Installation
 
@@ -97,23 +100,28 @@ The synthetic dataset is generated using 3D rock models. We used free rock model
 
 ### Generating the Dataset
 
-```python
+```bash
 python generate_data.py \
     --num_samples 1000 \
     --output_dir data/dataset \
-    --rock_models_dir rock_models \
-    --image_size 224 \
-    --min_rocks 50 \
-    --max_rocks 200
+    --size_mean_min 8.0 \
+    --size_mean_max 12.0 \
+    --size_sigma_min 6.0 \
+    --size_sigma_max 8.0 \
+    --particles_min 800 \
+    --particles_max 1000
 ```
 
 Key parameters:
 - `--num_samples`: Number of synthetic images to generate
 - `--output_dir`: Directory to save the generated dataset
-- `--rock_models_dir`: Directory containing the 3D rock models
-- `--image_size`: Output image size (default: 224x224)
-- `--min_rocks`: Minimum number of rocks per image
-- `--max_rocks`: Maximum number of rocks per image
+- `--size_mean_min`: Minimum value for particle size mean (default: 8.0)
+- `--size_mean_max`: Maximum value for particle size mean (default: 12.0)
+- `--size_sigma_min`: Minimum value for particle size standard deviation (default: 6.0)
+- `--size_sigma_max`: Maximum value for particle size standard deviation (default: 8.0)
+- `--particles_min`: Minimum number of particles per sample (default: 800)
+- `--particles_max`: Maximum number of particles per sample (default: 1000)
+- `--check_blender`: Check if Blender is available before starting generation
 
 ### Generating the CSV Dataset
 
@@ -138,49 +146,63 @@ The CSV file contains columns: `image_path`, `d10`, `d50`, `d90` where d10, d50,
 
 To train a model on the synthetic dataset:
 
-```python
+```bash
 python train_model.py \
-    --model resnet50 \
-    --data_dir data/dataset \
-    --output_dir results/resnet50 \
-    --batch_size 32 \
+    --model_type resnet50 \
+    --csv_file data/granules_dataset.csv \
     --epochs 100 \
-    --learning_rate 0.001 \
-    --pretrained True
+    --batch_size 32 \
+    --lr 0.001 \
+    --results_dir results \
+    --weights_dir weights
 ```
 
 Key parameters:
-- `--model`: Model architecture (options: resnet50, efficientnet_b0, inception_v3)
-- `--data_dir`: Path to the dataset
-- `--output_dir`: Directory to save model weights and results
-- `--batch_size`: Training batch size
-- `--epochs`: Number of training epochs
-- `--learning_rate`: Initial learning rate
-- `--pretrained`: Use pretrained weights (default: True)
+- `--model_type`: Model architecture (options: resnet50, efficientnet_b0, inception_v3, cnn)
+- `--csv_file`: Path to the dataset CSV file (default: data/granules_dataset.csv)
+- `--train_split`: Fraction of data to use for training (default: 0.7)
+- `--val_split`: Fraction of data to use for validation (default: 0.15)
+- `--epochs`: Number of training epochs (default: 100)
+- `--batch_size`: Training batch size (default: 32)
+- `--lr`: Learning rate for optimizer (default: 0.001)
+- `--results_dir`: Directory to save training results (default: results)
+- `--weights_dir`: Directory to save model weights (default: weights)
 
 ## Inference
 
-For inference on new images:
+For inference on a test dataset:
 
-```python
+```bash
 python src/test_inference_with_metrics.py \
-    --model_path results/resnet50/best_model.pth \
-    --image_path path/to/image.jpg \
-    --output_dir results/inference
+    --model_type resnet50 \
+    --weights results/resnet50/best_model.pth \
+    --test_csv data/test_dataset.csv \
+    --output_csv results/predictions.csv \
+    --plot_file results/prediction_plot.png \
+    --batch_size 32
 ```
+
+Key parameters:
+- `--model_type`: Model architecture (resnet50, efficientnet_b0, inception_v3)
+- `--weights`: Path to trained model weights (.pth file)
+- `--test_csv`: Path to test CSV with columns: image_path, d10, d50, d90
+- `--old_pred_csv`: Alternative - use existing predictions CSV to generate new test CSV
+- `--generated_test_csv`: Where to save newly created test CSV (default: test.csv)
+- `--output_csv`: Path to save predictions (default: predictions.csv)
+- `--plot_file`: Path to save prediction plots (default: prediction_plot.png)
+- `--batch_size`: Batch size for inference (default: 32)
+- `--device`: Force device ('cpu' or 'cuda', auto-detected if not specified)
 
 ## Results
 
 ### Model Performance Visualization
 
-#### ResNet50 Predictions
-![ResNet50 Predictions](inference_results/gpu_results/resnet50_plot.png)
+<div align="center">
 
-#### EfficientNet-B0 Predictions
-![EfficientNet-B0 Predictions](inference_results/gpu_results/efficientnet_b0_plot.png)
+<img src="inference_results/gpu_results/resnet50_plot.png" width="500"/> <img src="inference_results/gpu_results/efficientnet_b0_plot.png" width="500"/> <img src="inference_results/gpu_results/inception_v3_plot.png" width="500"/>
 
-#### Inception-v3 Predictions
-![Inception-v3 Predictions](inference_results/gpu_results/inception_v3_plot.png)
+</div>
+
 ### Quantitative Results
 
 #### Inference Speed and Performance Comparison
@@ -201,13 +223,15 @@ Key observations:
 If you find this work useful, please cite our paper:
 
 ```bibtex
-@inproceedings{
-    jarida2025instant,
-    title={Instant Particle Size Distribution Measurement Using {CNN}s Trained on Synthetic Data},
-    author={Yasser El Jarida and Youssef Iraqi and Loubna Mekouar},
-    booktitle={Synthetic Data for Computer Vision Workshop @ CVPR 2025},
-    year={2025},
-    url={https://openreview.net/forum?id=wPgGTUWmhl}
+@misc{jarida2025instant,
+  title        = {Instant Particle Size Distribution Measurement Using CNNs Trained on Synthetic Data},
+  author       = {Yasser El Jarida and Youssef Iraqi and Loubna Mekouar},
+  note         = {Accepted at the Synthetic Data for Computer Vision Workshop @ CVPR 2025},
+  year         = {2025},
+  eprint       = {2507.00822},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2507.00822}
 }
 ```
 
